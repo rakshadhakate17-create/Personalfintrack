@@ -1,0 +1,27 @@
+# Frontend
+client/node_modules/
+client/dist/
+client/.env
+client/.env.*
+!client/.env.example
+
+# Backend
+server/target/
+server/build/
+server/.env
+server/.env.*
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# IDE and operating system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local review archive
+/backend-source-review.zip
