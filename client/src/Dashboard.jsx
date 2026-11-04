@@ -14,7 +14,13 @@ import {
 } from 'recharts';
 import './Dashboard.css';
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080').replace(/\/+$/, '');
+
+ 
+// Backend API configuration
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || 'http://localhost:8080'
+).replace(/\/+$/, '');
+
 const API_URL = `${API_BASE_URL}/api/transactions`;
 const BUDGET_API_URL = `${API_BASE_URL}/api/budgets`;
 

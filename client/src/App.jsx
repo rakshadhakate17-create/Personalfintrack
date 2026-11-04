@@ -3,6 +3,11 @@ import { useState } from 'react';
 import './App.css';
 import Dashboard from './Dashboard.jsx';
 
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || 'http://localhost:8080'
+).replace(/\/+$/, '');
+
+
 export default function App() {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,25 +40,28 @@ async function handleSubmit(event) {
         password,
       };
 
-  try {
-    const response = await fetch(
-      `http://localhost:8080/api/auth/${isLogin ? 'login' : 'register'}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      }
-    );
-
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      throw new Error(
-        data.message || data.error || `Request failed (${response.status})`
-      );
+ 
+try {
+  const response = await fetch(
+    `${API_BASE_URL}/api/auth/${isLogin ? 'login' : 'register'}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
     }
+  );
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || data.error || `Request failed (${response.status})`
+    );
+  }
+
+  // Keep your existing success handling here.
 
     if (isLogin) {
       const token = data.token ?? data.accessToken ?? data.jwt;
